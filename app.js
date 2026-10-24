@@ -705,9 +705,12 @@
     const completedRound = [...state.matches]
       .sort((a, b) => b.round - a.round)
       .find((match) => match.origin === "actual" && match.status === "final")?.round;
-    $(".last-updated").textContent = completedRound
-      ? `R${completedRound} ${state.matches.some((m) => m.round === completedRound && m.status === "pending") ? "LIVE" : "FINAL"}`
-      : "SNAPSHOT";
+    const lastUpdated = $(".last-updated");
+    if (lastUpdated) {
+      lastUpdated.textContent = completedRound
+        ? `R${completedRound} ${state.matches.some((m) => m.round === completedRound && m.status === "pending") ? "LIVE" : "FINAL"}`
+        : "SNAPSHOT";
+    }
   }
 
   function renderQualification() {
@@ -1113,16 +1116,20 @@
     window.addEventListener("beforeinstallprompt", (event) => {
       event.preventDefault();
       deferredInstallPrompt = event;
-      $("#installBtn").hidden = false;
+      const installButton = $("#installBtn");
+      if (installButton) installButton.hidden = false;
     });
 
-    $("#installBtn").addEventListener("click", async () => {
-      if (!deferredInstallPrompt) return;
-      deferredInstallPrompt.prompt();
-      await deferredInstallPrompt.userChoice;
-      deferredInstallPrompt = null;
-      $("#installBtn").hidden = true;
-    });
+    const installButton = $("#installBtn");
+    if (installButton) {
+      installButton.addEventListener("click", async () => {
+        if (!deferredInstallPrompt) return;
+        deferredInstallPrompt.prompt();
+        await deferredInstallPrompt.userChoice;
+        deferredInstallPrompt = null;
+        installButton.hidden = true;
+      });
+    }
 
     window.addEventListener("hashchange", () => {
       const loaded = loadFromHash();
@@ -1139,15 +1146,17 @@
   }
 
   function configureGithubLink() {
+    const githubLink = $("#githubLink");
+    if (!githubLink) return;
     const host = location.hostname;
     const pathParts = location.pathname.split("/").filter(Boolean);
     if (host.endsWith("github.io") && pathParts.length) {
       const owner = host.split(".")[0];
-      $("#githubLink").href = `https://github.com/${owner}/${pathParts[0]}`;
+      githubLink.href = `https://github.com/${owner}/${pathParts[0]}`;
       return;
     }
     if (location.protocol === "file:") {
-      $("#githubLink").title = "部署到 GitHub Pages 后自动指向仓库";
+      githubLink.title = "部署到 GitHub Pages 后自动指向仓库";
     }
   }
 

@@ -3,285 +3,116 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#07111d">
-  <meta name="description" content="英雄联盟 2026 全球总决赛瑞士轮与淘汰赛推演器。从真实赛果出发，点击胜者，生成你的冠军之路。">
-  <title>Worlds 2026 · 瑞士轮推演器</title>
+  <meta name="theme-color" content="#080d17">
+  <meta name="description" content="英雄联盟 2026 全球总决赛瑞士轮与淘汰赛推演器。">
+  <title>Worlds 2026 · 赛事推演器</title>
   <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
   <link rel="manifest" href="manifest.webmanifest">
-  <link rel="stylesheet" href="styles.css?v=20261024-2">
+  <link rel="stylesheet" href="styles.css?v=20261024-4">
 </head>
 <body>
-  <div class="ambient ambient-a" aria-hidden="true"></div>
-  <div class="ambient ambient-b" aria-hidden="true"></div>
-  <div class="grid-noise" aria-hidden="true"></div>
+  <div class="page-glow" aria-hidden="true"></div>
 
   <header class="site-header">
-    <a class="brand" href="#" aria-label="回到页面顶部">
-      <span class="brand-mark" aria-hidden="true">
-        <span></span><span></span><span></span>
-      </span>
-      <span class="brand-copy">
-        <strong>WORLDS <em>LAB</em></strong>
-        <small>LEAGUE OF LEGENDS · 2026</small>
+    <a class="brand" href="#" aria-label="返回顶部">
+      <span class="brand-mark" aria-hidden="true">W</span>
+      <span>
+        <strong>WORLDS <em>26</em></strong>
+        <small>LEAGUE OF LEGENDS</small>
       </span>
     </a>
-    <nav class="top-nav" aria-label="主导航">
-      <button class="nav-link is-active" data-scroll-to="simulator">模拟器</button>
-      <button class="nav-link" data-open-dialog="rulesDialog">赛制说明</button>
-      <a class="nav-link github-link" href="https://github.com/" target="_blank" rel="noreferrer" id="githubLink">GitHub</a>
-    </nav>
+    <div class="header-title">2026 全球总决赛</div>
     <div class="header-actions">
-      <button class="icon-button" id="installBtn" type="button" hidden>
-        <span aria-hidden="true">↓</span>
-        <span class="icon-button-label">安装</span>
-      </button>
-      <button class="icon-button" id="shareBtn" type="button" title="复制当前推演链接">
-        <span aria-hidden="true">↗</span>
-        <span class="icon-button-label">分享</span>
-      </button>
-      <button class="menu-button" id="moreBtn" type="button" aria-label="打开工具菜单" aria-expanded="false">
+      <button class="icon-button" id="shareBtn" type="button">分享</button>
+      <button class="menu-button" id="moreBtn" type="button" aria-label="更多工具" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
     </div>
     <div class="tool-menu" id="toolMenu" hidden>
-      <button type="button" data-tool="export">导出推演 JSON</button>
-      <button type="button" data-tool="import">导入推演 JSON</button>
+      <button type="button" data-open-dialog="rulesDialog">赛事规则</button>
+      <button type="button" data-tool="export">导出推演</button>
+      <button type="button" data-tool="import">导入推演</button>
       <button type="button" data-tool="reset">恢复真实赛果</button>
-      <button type="button" data-open-dialog="rulesDialog">查看规则与数据来源</button>
     </div>
   </header>
 
   <main>
-    <section class="hero" id="simulator">
-      <div class="hero-copy">
-        <div class="live-label"><span></span> LIVE SNAPSHOT · 10.24</div>
-        <h1>瑞士轮，<br><span>从现在开始重写。</span></h1>
-        <p class="hero-lead">2026 全球总决赛推演器。真实赛果已经就位，接下来每一场胜负、每一次抽签，都由你决定。</p>
-        <div class="hero-meta">
-          <span><i class="status-dot"></i> R1 已结束</span>
-          <span>R2 · OCT 24</span>
-          <span>SWISS → BO5 KNOCKOUT</span>
-        </div>
-      </div>
-
-      <div class="hero-visual" aria-label="赛事进度概览">
-        <div class="orbital" aria-hidden="true">
-          <div class="orbit orbit-one"></div>
-          <div class="orbit orbit-two"></div>
-          <div class="orbit-core">
-            <span>16</span>
-            <small>TEAMS</small>
-          </div>
-          <span class="orbit-node node-a">KR</span>
-          <span class="orbit-node node-b">CN</span>
-          <span class="orbit-node node-c">EU</span>
-          <span class="orbit-node node-d">NA</span>
-        </div>
-        <div class="hero-stat-card stat-top">
-          <span class="stat-kicker">NEXT UP</span>
-          <strong>R2</strong>
-          <span>8 场待定</span>
-        </div>
-        <div class="hero-stat-card stat-bottom">
-          <span class="stat-kicker">THE ROAD TO 8</span>
-          <strong>3<span>/</span>0</strong>
-          <span>率先晋级线</span>
-        </div>
-      </div>
+    <section class="event-title" id="simulator">
+      <span class="eyebrow">LEAGUE OF LEGENDS · WORLD CHAMPIONSHIP</span>
+      <h1>Worlds 2026 Simulator</h1>
+      <p><span class="live-dot"></span> 数据截至 2026.10.24 · 瑞士轮 R2 待开赛</p>
     </section>
 
-    <section class="control-deck" aria-label="模拟控制台">
-      <div class="stage-switcher" role="tablist" aria-label="赛事阶段">
-        <button role="tab" class="stage-tab is-active" id="swissTab" data-view-target="swissView" aria-selected="true">
-          <span>01</span> 瑞士轮
-        </button>
-        <button role="tab" class="stage-tab" id="knockoutTab" data-view-target="knockoutView" aria-selected="false">
-          <span>02</span> 淘汰赛
-        </button>
-      </div>
-      <div class="control-divider" aria-hidden="true"></div>
-      <div class="simulation-controls">
-        <button class="button button-primary" id="simulateNextBtn" type="button">
-          <span class="button-icon">▶</span> 模拟下一场
-        </button>
-        <button class="button button-secondary" id="simulateRoundBtn" type="button">模拟本轮</button>
-        <button class="button button-secondary" id="fastForwardBtn" type="button">直达冠军</button>
-        <button class="button button-quiet" id="undoBtn" type="button" disabled>撤销</button>
-      </div>
-      <div class="format-chip">
-        <span class="format-chip-dot"></span>
-        <span id="formatChipText">BO1 · ROUND 2</span>
-      </div>
+    <nav class="stage-nav" aria-label="赛事阶段">
+      <button class="stage-tab is-active" id="swissTab" type="button" data-view-target="swissView" aria-selected="true">
+        瑞士轮
+      </button>
+      <button class="stage-tab" id="knockoutTab" type="button" data-view-target="knockoutView" aria-selected="false">
+        淘汰赛
+      </button>
+    </nav>
+
+    <section class="control-bar" aria-label="推演控制">
+      <button class="button button-primary" id="simulateNextBtn" type="button">模拟下一场</button>
+      <button class="button button-secondary" id="simulateRoundBtn" type="button">模拟本轮</button>
+      <button class="button button-secondary" id="fastForwardBtn" type="button">模拟全程</button>
+      <button class="button button-quiet" id="undoBtn" type="button" disabled>撤销</button>
+      <span class="format-chip" id="formatChipText">BO1 · ROUND 2</span>
     </section>
 
     <section class="app-view is-active" id="swissView" role="tabpanel" aria-labelledby="swissTab">
-      <div class="section-heading">
-        <div>
-          <span class="eyebrow">SWISS STAGE / 16 → 8</span>
-          <h2>瑞士轮对阵</h2>
-        </div>
-        <p>同战绩相遇，先拿 3 胜晋级，先吞 3 负淘汰。点击队伍即可改写赛果。</p>
-      </div>
-
-      <div class="swiss-layout">
-        <section class="panel rounds-panel">
-          <div class="panel-heading">
-            <div>
-              <span class="panel-kicker">MATCH BOARD</span>
-              <h3>比赛进程</h3>
-            </div>
-            <div class="panel-tools">
-              <span class="legend"><i class="legend-dot actual"></i>真实赛程</span>
-              <span class="legend"><i class="legend-dot simulated"></i>你的推演</span>
-            </div>
-          </div>
-          <div class="rounds-scroll" id="swissRounds" aria-live="polite"></div>
-        </section>
-
-        <aside class="swiss-sidebar">
-          <section class="panel standings-panel">
-            <div class="panel-heading compact">
-              <div>
-                <span class="panel-kicker">LIVE TABLE</span>
-                <h3>积分榜</h3>
-              </div>
-              <span class="last-updated">R1 FINAL</span>
-            </div>
-            <div class="standings-head" aria-hidden="true">
-              <span>#</span><span>战队</span><span>战绩</span><span>状态</span>
-            </div>
-            <div id="standingsList" class="standings-list" aria-live="polite"></div>
-            <p class="table-note">排名按胜场、负场及种子强度排序。同战绩抽签模拟不会重复交手。</p>
-          </section>
-
-          <section class="panel path-panel">
-            <div class="panel-heading compact">
-              <div>
-                <span class="panel-kicker">QUALIFICATION PULSE</span>
-                <h3>晋级席位</h3>
-              </div>
-              <strong id="qualifiedCount">0 <span>/ 8</span></strong>
-            </div>
-            <div class="qualification-track">
-              <div class="track-fill" id="qualificationFill"></div>
-            </div>
-            <div class="qualification-groups" id="qualificationGroups"></div>
-          </section>
-
-          <section class="info-card">
-            <span class="info-card-number">i</span>
-            <div>
-              <strong>这是一场推演，不是官方赛果</strong>
-              <p>默认赛程更新至 2026-10-24。模拟概率由内置战队强度计算，仅用于娱乐。</p>
-              <button type="button" class="text-link" data-open-dialog="rulesDialog">查看数据与规则 →</button>
-            </div>
-          </section>
-        </aside>
-      </div>
+      <section class="board">
+        <div class="rounds-scroll" id="swissRounds" aria-live="polite"></div>
+      </section>
     </section>
 
     <section class="app-view" id="knockoutView" role="tabpanel" aria-labelledby="knockoutTab">
-      <div class="section-heading">
-        <div>
-          <span class="eyebrow">KNOCKOUT STAGE / 8 → 1</span>
-          <h2>冠军路径</h2>
-        </div>
-        <p>八强产生后自动落位。四分之一决赛、半决赛和决赛均为 BO5，胜负只在一线之间。</p>
-      </div>
-
-      <section class="bracket-shell panel" id="bracketShell">
+      <section class="board knockout-board" id="bracketShell">
         <div class="empty-bracket" id="emptyBracket">
-          <div class="empty-emblem" aria-hidden="true">
-            <span>8</span>
-          </div>
-          <span class="panel-kicker">AWAITING 8 QUALIFIERS</span>
-          <h3>通往决赛的门还没有打开</h3>
-          <p>完成五轮瑞士轮后，八支晋级战队会在这里排定对阵。你也可以直接让系统把剩下的比赛全部演完。</p>
-          <button class="button button-primary" type="button" id="simulateAllBtn">模拟完整届赛事 <span>→</span></button>
+          <span class="empty-number">8</span>
+          <h2>淘汰赛尚未开始</h2>
+          <p>完成瑞士轮后，八强对阵将在这里生成。</p>
+          <button class="button button-primary" type="button" id="simulateAllBtn">模拟至冠军</button>
         </div>
         <div class="bracket-content" id="bracketContent" hidden>
-          <div class="bracket-header">
-            <div>
-              <span class="panel-kicker">WORLDS 2026 · KNOCKOUT</span>
-              <h3>THE LAST EIGHT</h3>
-            </div>
-            <div class="bracket-legend"><span class="legend"><i class="legend-dot simulated"></i>点击一支队伍选择胜者</span></div>
-          </div>
           <div class="bracket-scroll">
             <div class="bracket-grid" id="bracketGrid"></div>
           </div>
           <div class="champion-strip" id="championStrip"></div>
         </div>
       </section>
-
-      <div class="knockout-summary">
-        <section class="panel summary-card">
-          <span class="panel-kicker">SEEDING</span>
-          <h3>八强种子</h3>
-          <div id="seedList" class="seed-list"></div>
-        </section>
-        <section class="panel summary-card">
-          <span class="panel-kicker">YOUR RUN</span>
-          <h3>推演摘要</h3>
-          <div id="runSummary" class="run-summary"></div>
-        </section>
-      </div>
     </section>
-  </main>
 
-  <footer class="site-footer">
-    <div>
-      <strong>WORLDS LAB <span>26</span></strong>
-      <p>为每一次“如果”留一个位置。</p>
+    <div class="sr-only" aria-hidden="true">
+      <div id="standingsList"></div>
+      <div id="qualifiedCount"></div>
+      <div id="qualificationGroups"></div>
+      <div id="qualificationFill"></div>
+      <div id="seedList"></div>
+      <div id="runSummary"></div>
     </div>
-    <div class="footer-meta">
-      <span>非 Riot Games 官方产品</span>
-      <span>数据快照：2026-10-24</span>
-      <a href="https://lolesports.com/" target="_blank" rel="noreferrer">LoL Esports ↗</a>
-    </div>
-  </footer>
+  </main>
 
   <dialog class="rules-dialog" id="rulesDialog">
     <div class="dialog-head">
-      <div>
-        <span class="panel-kicker">FORMAT & SOURCES</span>
-        <h2>赛制与数据</h2>
-      </div>
+      <h2>赛事规则</h2>
       <button class="dialog-close" type="button" data-close-dialog="rulesDialog" aria-label="关闭">×</button>
     </div>
     <div class="dialog-body">
-      <section>
-        <h3>瑞士轮</h3>
-        <p>16 支战队进行五轮比赛。前两轮均为 BO1；第三轮起，晋级战与淘汰战为 BO3，其余 1-1 对阵仍可能为 BO1。队伍按相同战绩配对，并尽量避免重复交手。</p>
-      </section>
-      <section>
-        <h3>晋级与淘汰</h3>
-        <p>率先取得 3 胜的 8 支战队进入淘汰赛，累计 3 负即淘汰。八强按照瑞士轮战绩与内置种子强度排序，界面使用 1-8、2-7、3-6、4-5 的标准交叉落位。</p>
-      </section>
-      <section>
-        <h3>推演机制</h3>
-        <p>自动结果依据队伍强度生成，并加入随机波动；它不是博彩赔率，也不代表官方预测。你可以直接点击任意战队手动指定胜者。每次操作都会保存在本机浏览器。</p>
-      </section>
-      <section>
-        <h3>当前数据</h3>
-        <p>默认真实快照收录 2026 全球总决赛瑞士轮第 1 轮 8 场赛果与第 2 轮抽签，截至 2026 年 10 月 24 日。后续实际赛果可以在应用中点击录入，或修改 <code>data.js</code>。</p>
-        <p class="source-links">
-          参考：
-          <a href="https://lolesports.com/" target="_blank" rel="noreferrer">LoL Esports</a>
-          <a href="https://liquipedia.net/leagueoflegends/2026_World_Championship/Swiss_Stage" target="_blank" rel="noreferrer">Liquipedia</a>
-          <a href="https://lol.fandom.com/wiki/2026_World_Championship" target="_blank" rel="noreferrer">Leaguepedia</a>
-        </p>
-      </section>
-    </div>
-    <div class="dialog-footer">
-      <button class="button button-primary" type="button" data-close-dialog="rulesDialog">开始推演</button>
+      <p>16 支战队进行五轮瑞士轮。前两轮为 BO1；涉及晋级或淘汰的后续比赛为 BO3。率先取得 3 胜晋级，累计 3 负淘汰。</p>
+      <p>八强、半决赛和决赛均为 BO5。点击任意战队即可手动选择胜者，自动赛果根据内置强度模拟。</p>
+      <p class="source-links">
+        数据参考：
+        <a href="https://lolesports.com/" target="_blank" rel="noreferrer">LoL Esports</a>
+        <a href="https://liquipedia.net/leagueoflegends/2026_World_Championship/Swiss_Stage" target="_blank" rel="noreferrer">Liquipedia</a>
+      </p>
     </div>
   </dialog>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <input type="file" id="importInput" accept="application/json,.json" hidden>
 
-  <script src="data.js?v=20261024-2"></script>
-  <script src="app.js?v=20261024-2"></script>
+  <script src="data.js?v=20261024-4"></script>
+  <script src="app.js?v=20261024-4"></script>
 </body>
 </html>
