@@ -425,8 +425,8 @@ main {
   display: inline-flex;
   gap: 5px;
   align-items: center;
-  min-height: 28px;
-  padding: 2px 6px 2px 3px;
+  min-height: 33px;
+  padding: 3px 7px 3px 4px;
   border: 1px solid var(--line);
   border-radius: 6px;
   background: rgba(255, 255, 255, 0.025);
@@ -638,7 +638,7 @@ main {
 
 .team-button {
   display: grid;
-  grid-template-columns: 36px minmax(0, 1fr) auto;
+  grid-template-columns: 40px minmax(0, 1fr) auto;
   gap: 10px;
   align-items: center;
   width: 100%;
@@ -687,8 +687,8 @@ main {
 .crest {
   position: relative;
   display: grid;
-  width: 32px;
-  height: 32px;
+  width: 38px;
+  height: 38px;
   overflow: hidden;
   place-items: center;
   border: 1px solid color-mix(in srgb, var(--team-color) 55%, transparent);
@@ -701,8 +701,13 @@ main {
 }
 
 .team-logo {
-  padding: 3px;
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(7, 14, 23, 0.9));
+  padding: 2px;
+  background: color-mix(in srgb, var(--team-color) 8%, rgba(12, 22, 34, 0.94));
+}
+
+.team-logo.on-light {
+  border-color: rgba(255, 255, 255, 0.3);
+  background: #e9edf0;
 }
 
 .team-logo-image {
@@ -710,7 +715,7 @@ main {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.45));
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.35));
 }
 
 .team-logo-fallback {
@@ -727,8 +732,8 @@ main {
 }
 
 .crest.small {
-  width: 25px;
-  height: 25px;
+  width: 28px;
+  height: 28px;
   border-radius: 6px;
   font-size: 6px;
 }
@@ -965,7 +970,7 @@ main {
 
 .bracket-team {
   display: grid;
-  grid-template-columns: 26px minmax(0, 1fr) auto;
+  grid-template-columns: 30px minmax(0, 1fr) auto;
   gap: 9px;
   align-items: center;
   width: 100%;

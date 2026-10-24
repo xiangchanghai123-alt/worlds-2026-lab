@@ -1,28 +1,28 @@
-const CACHE_NAME = "worlds-lab-2026-v14";
+const CACHE_NAME = "worlds-lab-2026-v17";
 const APP_SHELL = [
   "./",
   "./index.html",
-  "./styles.css?v=20261024-12",
-  "./data.js?v=20261024-12",
-  "./app.js?v=20261024-12",
+  "./styles.css?v=20261024-15",
+  "./data.js?v=20261024-15",
+  "./app.js?v=20261024-15",
   "./manifest.webmanifest",
   "./assets/icon.svg",
-  "./assets/teams/GEN.webp",
-  "./assets/teams/HLE.webp",
-  "./assets/teams/T1.webp",
-  "./assets/teams/DK.webp",
-  "./assets/teams/BLG.webp",
-  "./assets/teams/TES.webp",
-  "./assets/teams/AL.webp",
-  "./assets/teams/IG.webp",
-  "./assets/teams/KOI.webp",
-  "./assets/teams/KC.webp",
-  "./assets/teams/G2.webp",
-  "./assets/teams/LYON.webp",
-  "./assets/teams/TLAW.webp",
-  "./assets/teams/CFO.webp",
-  "./assets/teams/TSW.webp",
-  "./assets/teams/LOS.webp"
+  "./assets/teams/GEN.webp?v=20261024-square160",
+  "./assets/teams/HLE.webp?v=20261024-square160",
+  "./assets/teams/T1.webp?v=20261024-square160",
+  "./assets/teams/DK.webp?v=20261024-square160",
+  "./assets/teams/BLG.webp?v=20261024-square160",
+  "./assets/teams/TES.webp?v=20261024-square160",
+  "./assets/teams/AL.webp?v=20261024-square160",
+  "./assets/teams/IG.webp?v=20261024-square160",
+  "./assets/teams/KOI.webp?v=20261024-square160",
+  "./assets/teams/KC.webp?v=20261024-square160",
+  "./assets/teams/G2.webp?v=20261024-square160",
+  "./assets/teams/LYON.webp?v=20261024-square160",
+  "./assets/teams/TLAW.webp?v=20261024-square160",
+  "./assets/teams/CFO.webp?v=20261024-square160",
+  "./assets/teams/TSW.webp?v=20261024-square160",
+  "./assets/teams/LOS.webp?v=20261024-square160"
 ];
 
 self.addEventListener("install", (event) => {

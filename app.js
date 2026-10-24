@@ -586,9 +586,10 @@
     if (!team) {
       return `<span class="crest ${small ? "small" : ""}" style="--team-color:#506474">?</span>`;
     }
+    const needsLightBackdrop = teamId === "DK" || teamId === "IG";
     return `
-      <span class="crest team-logo ${small ? "small" : ""}" style="--team-color:${team.color}" aria-hidden="true">
-        <img class="team-logo-image" src="assets/teams/${teamId}.webp" alt="" loading="lazy" onerror="this.parentElement.classList.add('is-missing')">
+      <span class="crest team-logo ${small ? "small" : ""} ${needsLightBackdrop ? "on-light" : ""}" style="--team-color:${team.color}" aria-hidden="true">
+        <img class="team-logo-image" src="assets/teams/${teamId}.webp?v=20261024-square160" alt="" loading="lazy" onerror="this.parentElement.classList.add('is-missing')">
         <span class="team-logo-fallback">${team.short}</span>
       </span>
     `;
