@@ -116,7 +116,7 @@
     }
   }
 
-  function getRecords() {
+  function getRecords(upToRound = Infinity) {
     const records = new Map(
       TEAM_IDS.map((id) => [
         id,
@@ -131,7 +131,7 @@
     );
 
     state.matches
-      .filter((match) => match.status === "final")
+      .filter((match) => match.status === "final" && match.round <= upToRound)
       .sort((a, b) => a.round - b.round || a.matchNo - b.matchNo)
       .forEach((match) => {
         const winner = winnerOf(match);
@@ -589,11 +589,15 @@
     return `<span class="crest ${small ? "small" : ""}" style="--team-color:${team.color}" aria-hidden="true">${team.short}</span>`;
   }
 
-  function teamTournamentState(record) {
+  function teamTournamentState(record, match, currentRound) {
     if (record.wins >= 3) return { className: "is-qualified", label: "晋级" };
     if (record.losses >= 3) return { className: "is-eliminated", label: "淘汰" };
-    if (record.wins === 2) return { className: "is-match-point", label: "赛点" };
-    if (record.losses === 2) return { className: "is-danger", label: "生死战" };
+    if (match.round === currentRound && record.wins === 2) {
+      return { className: "is-match-point", label: "赛点" };
+    }
+    if (match.round === currentRound && record.losses === 2) {
+      return { className: "is-danger", label: "生死战" };
+    }
     return { className: "is-active", label: "" };
   }
 
@@ -613,26 +617,28 @@
     const teamMarkup = (teamId, score, isWinner) => {
       const team = TEAMS[teamId];
       const record = records.get(teamId);
-      const tournamentState = teamTournamentState(record);
+      const tournamentState = teamTournamentState(record, match, currentRound);
       const teamClass = isFinal
         ? isWinner
           ? "is-winner"
           : "is-loser"
         : "";
-      const scoreMarkup = isFinal
-        ? `<span class="team-score">${score}</span>`
-        : `<span class="pick-hint">选择</span>`;
+      const ownScore = teamId === match.a ? match.scoreA : match.scoreB;
+      const otherScore = teamId === match.a ? match.scoreB : match.scoreA;
+      const matchDetail = isFinal
+        ? `本场 ${ownScore}–${otherScore} · ${isWinner ? "胜" : "负"}`
+        : "本场待赛";
       return `
         <button class="team-button ${teamClass} ${tournamentState.className}" type="button" data-match-id="${match.id}" data-team-id="${teamId}" aria-label="选择 ${team.name} 获胜，当前战绩 ${record.wins} 胜 ${record.losses} 负${tournamentState.label ? `，${tournamentState.label}` : ""}">
           ${crestMarkup(teamId)}
           <span class="team-name-wrap">
             <span class="team-name">${team.name}</span>
-            <span class="team-region">
-              ${record.wins}–${record.losses}
-              ${tournamentState.label ? `<b>${tournamentState.label}</b>` : ""}
-            </span>
+            <span class="team-region">${matchDetail}</span>
           </span>
-          ${scoreMarkup}
+          <span class="team-result">
+            <span class="team-record">${record.wins}<i>–</i>${record.losses}</span>
+            ${tournamentState.label ? `<b>${tournamentState.label}</b>` : ""}
+          </span>
         </button>
       `;
     };
@@ -651,10 +657,10 @@
 
   function renderRounds() {
     const currentRound = currentSwissRound();
-    const records = getRecords();
     const columns = [];
 
     for (let round = 1; round <= MAX_SWISS_ROUNDS; round += 1) {
+      const records = getRecords(round);
       const matches = state.matches
         .filter((match) => match.round === round)
         .sort((a, b) => a.matchNo - b.matchNo);

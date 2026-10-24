@@ -724,69 +724,74 @@ main {
   line-height: 1.35;
 }
 
-.team-region b {
+.team-result {
+  display: flex;
+  min-width: 38px;
+  flex-direction: column;
+  gap: 1px;
+  align-items: flex-end;
+}
+
+.team-record {
+  color: #94a4b2;
+  font-family: var(--display);
+  font-size: 18px;
+  line-height: 1.05;
+  letter-spacing: 0.02em;
+}
+
+.team-record i {
+  margin: 0 1px;
+  color: #52677a;
+  font-size: 12px;
+  font-style: normal;
+}
+
+.team-result b {
   padding: 1px 4px;
   border-radius: 3px;
   font-size: 6px;
   font-weight: 600;
 }
 
-.team-button.is-qualified .team-region {
-  color: #66cdbf;
+.team-button.is-winner .team-record {
+  color: #f3f7f8;
 }
 
-.team-button.is-qualified .team-region b {
+.team-button.is-qualified .team-record {
+  color: #70ead7;
+}
+
+.team-button.is-qualified .team-result b {
   background: rgba(82, 228, 208, 0.12);
   color: #70ead7;
 }
 
-.team-button.is-eliminated .team-region {
-  color: #b76d6c;
+.team-button.is-eliminated .team-record {
+  color: #ed8c89;
 }
 
-.team-button.is-eliminated .team-region b {
+.team-button.is-eliminated .team-result b {
   background: rgba(237, 118, 116, 0.11);
   color: #ed8c89;
 }
 
-.team-button.is-match-point .team-region {
-  color: #b39a5f;
+.team-button.is-match-point .team-record {
+  color: var(--gold);
 }
 
-.team-button.is-match-point .team-region b {
+.team-button.is-match-point .team-result b {
   background: rgba(240, 196, 93, 0.1);
   color: var(--gold);
 }
 
-.team-button.is-danger .team-region {
-  color: #a77777;
+.team-button.is-danger .team-record {
+  color: #c98482;
 }
 
-.team-button.is-danger .team-region b {
+.team-button.is-danger .team-result b {
   background: rgba(237, 118, 116, 0.07);
   color: #c27c7a;
-}
-
-.team-score {
-  min-width: 18px;
-  color: #8fa0af;
-  font-family: var(--display);
-  font-size: 18px;
-  text-align: right;
-}
-
-.team-button.is-winner .team-score {
-  color: var(--cyan);
-}
-
-.pick-hint {
-  color: transparent;
-  font-size: 8px;
-  transition: color 120ms ease;
-}
-
-.match-card:hover .pick-hint {
-  color: var(--blue);
 }
 
 .round-empty {
