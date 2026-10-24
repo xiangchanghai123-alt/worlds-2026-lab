@@ -1,10 +1,10 @@
-const CACHE_NAME = "worlds-lab-2026-v17";
+const CACHE_NAME = "worlds-lab-2026-v18";
 const APP_SHELL = [
   "./",
   "./index.html",
-  "./styles.css?v=20261024-15",
-  "./data.js?v=20261024-15",
-  "./app.js?v=20261024-15",
+  "./styles.css?v=20261024-16",
+  "./data.js?v=20261024-16",
+  "./app.js?v=20261024-16",
   "./manifest.webmanifest",
   "./assets/icon.svg",
   "./assets/teams/GEN.webp?v=20261024-square160",

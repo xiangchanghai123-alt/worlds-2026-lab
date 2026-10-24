@@ -2,6 +2,8 @@
 
 英雄联盟 2026 全球总决赛瑞士轮与淘汰赛推演器。界面参考 [majors.im](https://majors.im/2026/cologne) 的赛事推演思路，围绕 LoL 的 Bo1/Bo3 瑞士轮和 Bo5 淘汰赛重新设计。
 
+在线使用：[xiangchanghai123-alt.github.io/worlds-2026-lab](https://xiangchanghai123-alt.github.io/worlds-2026-lab/)
+
 ![Worlds Lab 26 preview](preview.png)
 
 ## 功能

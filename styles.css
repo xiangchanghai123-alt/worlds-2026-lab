@@ -188,6 +188,16 @@ a:focus-visible {
   color: var(--text);
 }
 
+.project-link {
+  gap: 5px;
+  color: #aebdca;
+}
+
+.project-link span {
+  color: var(--blue);
+  font-size: 12px;
+}
+
 .tool-menu {
   position: absolute;
   top: 56px;
