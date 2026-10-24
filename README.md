@@ -52,4 +52,4 @@ https://<你的用户名>.github.io/<仓库名>/
 
 默认快照截至 2026-10-24，参考 Riot Games / LoL Esports 赛程、Liquipedia 与 Leaguepedia。实际比赛信息请以官方发布为准。
 
-这是非 Riot Games 官方产品。项目不包含战队官方 Logo，界面中的战队徽记使用字母和自定义配色。
+这是非 Riot Games 官方产品。战队 Logo 仅用于队伍识别，相关商标与图片权利归各战队及权利方所有。

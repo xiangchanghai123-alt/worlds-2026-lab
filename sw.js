@@ -1,12 +1,28 @@
-const CACHE_NAME = "worlds-lab-2026-v13";
+const CACHE_NAME = "worlds-lab-2026-v14";
 const APP_SHELL = [
   "./",
   "./index.html",
-  "./styles.css?v=20261024-11",
-  "./data.js?v=20261024-11",
-  "./app.js?v=20261024-11",
+  "./styles.css?v=20261024-12",
+  "./data.js?v=20261024-12",
+  "./app.js?v=20261024-12",
   "./manifest.webmanifest",
-  "./assets/icon.svg"
+  "./assets/icon.svg",
+  "./assets/teams/GEN.webp",
+  "./assets/teams/HLE.webp",
+  "./assets/teams/T1.webp",
+  "./assets/teams/DK.webp",
+  "./assets/teams/BLG.webp",
+  "./assets/teams/TES.webp",
+  "./assets/teams/AL.webp",
+  "./assets/teams/IG.webp",
+  "./assets/teams/KOI.webp",
+  "./assets/teams/KC.webp",
+  "./assets/teams/G2.webp",
+  "./assets/teams/LYON.webp",
+  "./assets/teams/TLAW.webp",
+  "./assets/teams/CFO.webp",
+  "./assets/teams/TSW.webp",
+  "./assets/teams/LOS.webp"
 ];
 
 self.addEventListener("install", (event) => {

@@ -586,7 +586,12 @@
     if (!team) {
       return `<span class="crest ${small ? "small" : ""}" style="--team-color:#506474">?</span>`;
     }
-    return `<span class="crest ${small ? "small" : ""}" style="--team-color:${team.color}" aria-hidden="true">${team.short}</span>`;
+    return `
+      <span class="crest team-logo ${small ? "small" : ""}" style="--team-color:${team.color}" aria-hidden="true">
+        <img class="team-logo-image" src="assets/teams/${teamId}.webp" alt="" loading="lazy" onerror="this.parentElement.classList.add('is-missing')">
+        <span class="team-logo-fallback">${team.short}</span>
+      </span>
+    `;
   }
 
   function teamTournamentState(record, match, currentRound) {
@@ -632,7 +637,7 @@
         <button class="team-button ${teamClass} ${tournamentState.className}" type="button" data-match-id="${match.id}" data-team-id="${teamId}" aria-label="选择 ${team.name} 获胜，当前战绩 ${record.wins} 胜 ${record.losses} 负${tournamentState.label ? `，${tournamentState.label}` : ""}">
           ${crestMarkup(teamId)}
           <span class="team-name-wrap">
-            <span class="team-name">${team.name}</span>
+            <span class="team-name" title="${team.name}">${team.short}</span>
             <span class="team-region">${matchDetail}</span>
           </span>
           <span class="team-result">
@@ -776,6 +781,7 @@
     const teamTag = (record, kind) => `
       <span class="advance-team ${kind}">
         ${crestMarkup(record.id, true)}
+        <span>${TEAMS[record.id].short}</span>
         <b>${record.wins}–${record.losses}</b>
       </span>
     `;
@@ -843,7 +849,7 @@
       return `
         <button class="bracket-team ${isWinner ? "is-winner" : ""}" type="button" data-bracket-match="${match.id}" data-team-id="${teamId}" aria-label="选择 ${team.name} 获胜">
           ${crestMarkup(teamId, true)}
-          <span class="bracket-team-name">${team.name}</span>
+          <span class="bracket-team-name" title="${team.name}">${team.short}</span>
           <span class="bracket-score">${isFinal ? score : "·"}</span>
         </button>
       `;

@@ -441,6 +441,10 @@ main {
   font-weight: 500;
 }
 
+.advance-team > span:not(.crest) {
+  font-weight: 600;
+}
+
 .advance-team.up {
   border-color: rgba(82, 228, 208, 0.2);
   background: rgba(82, 228, 208, 0.055);
@@ -634,7 +638,7 @@ main {
 
 .team-button {
   display: grid;
-  grid-template-columns: 32px minmax(0, 1fr) auto;
+  grid-template-columns: 36px minmax(0, 1fr) auto;
   gap: 10px;
   align-items: center;
   width: 100%;
@@ -681,9 +685,11 @@ main {
 }
 
 .crest {
+  position: relative;
   display: grid;
   width: 32px;
   height: 32px;
+  overflow: hidden;
   place-items: center;
   border: 1px solid color-mix(in srgb, var(--team-color) 55%, transparent);
   border-radius: 7px;
@@ -692,6 +698,32 @@ main {
   font-family: var(--display);
   font-size: 7px;
   font-weight: 700;
+}
+
+.team-logo {
+  padding: 3px;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(7, 14, 23, 0.9));
+}
+
+.team-logo-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.45));
+}
+
+.team-logo-fallback {
+  display: none;
+  font-size: 7px;
+}
+
+.team-logo.is-missing .team-logo-image {
+  display: none;
+}
+
+.team-logo.is-missing .team-logo-fallback {
+  display: block;
 }
 
 .crest.small {
@@ -708,8 +740,10 @@ main {
 .team-name {
   display: block;
   overflow: hidden;
-  font-size: 12px;
+  font-family: var(--display);
+  font-size: 13px;
   font-weight: 560;
+  letter-spacing: 0.035em;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
