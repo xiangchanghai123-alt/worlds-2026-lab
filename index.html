@@ -8,7 +8,7 @@
   <title>Worlds 2026 · 赛事推演器</title>
   <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
   <link rel="manifest" href="manifest.webmanifest">
-  <link rel="stylesheet" href="styles.css?v=20261024-4">
+  <link rel="stylesheet" href="styles.css?v=20261024-10">
 </head>
 <body>
   <div class="page-glow" aria-hidden="true"></div>
@@ -40,7 +40,7 @@
     <section class="event-title" id="simulator">
       <span class="eyebrow">LEAGUE OF LEGENDS · WORLD CHAMPIONSHIP</span>
       <h1>Worlds 2026 Simulator</h1>
-      <p><span class="live-dot"></span> 数据截至 2026.10.24 · 瑞士轮 R2 待开赛</p>
+      <p><span class="live-dot"></span><span id="eventStatus">数据快照 10.24 · 瑞士轮 R2</span></p>
     </section>
 
     <nav class="stage-nav" aria-label="赛事阶段">
@@ -57,7 +57,29 @@
       <button class="button button-secondary" id="simulateRoundBtn" type="button">模拟本轮</button>
       <button class="button button-secondary" id="fastForwardBtn" type="button">模拟全程</button>
       <button class="button button-quiet" id="undoBtn" type="button" disabled>撤销</button>
-      <span class="format-chip" id="formatChipText">BO1 · ROUND 2</span>
+      <span class="format-chip" id="formatChipText">晋级 0/8 · 淘汰 0/8</span>
+    </section>
+
+    <section class="advance-strip" aria-label="晋级与淘汰情况">
+      <div class="advance-lane advance-lane-up">
+        <div class="advance-label">
+          <span>晋级区</span>
+          <strong id="qualifiedCountLive">0 / 8</strong>
+        </div>
+        <div class="advance-teams" id="advanceQualified">
+          <span class="advance-empty">等待三胜战队</span>
+        </div>
+      </div>
+      <div class="advance-divider" aria-hidden="true">→</div>
+      <div class="advance-lane advance-lane-out">
+        <div class="advance-label">
+          <span>淘汰区</span>
+          <strong id="eliminatedCountLive">0 / 8</strong>
+        </div>
+        <div class="advance-teams" id="advanceEliminated">
+          <span class="advance-empty">等待三负战队</span>
+        </div>
+      </div>
     </section>
 
     <section class="app-view is-active" id="swissView" role="tabpanel" aria-labelledby="swissTab">
@@ -112,7 +134,7 @@
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <input type="file" id="importInput" accept="application/json,.json" hidden>
 
-  <script src="data.js?v=20261024-4"></script>
-  <script src="app.js?v=20261024-4"></script>
+  <script src="data.js?v=20261024-10"></script>
+  <script src="app.js?v=20261024-10"></script>
 </body>
 </html>

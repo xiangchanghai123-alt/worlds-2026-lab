@@ -589,7 +589,15 @@
     return `<span class="crest ${small ? "small" : ""}" style="--team-color:${team.color}" aria-hidden="true">${team.short}</span>`;
   }
 
-  function matchCardMarkup(match, currentRound) {
+  function teamTournamentState(record) {
+    if (record.wins >= 3) return { className: "is-qualified", label: "晋级" };
+    if (record.losses >= 3) return { className: "is-eliminated", label: "淘汰" };
+    if (record.wins === 2) return { className: "is-match-point", label: "赛点" };
+    if (record.losses === 2) return { className: "is-danger", label: "生死战" };
+    return { className: "is-active", label: "" };
+  }
+
+  function matchCardMarkup(match, currentRound, records) {
     const isFinal = match.status === "final";
     const winner = winnerOf(match);
     const isSimulated = match.origin !== "actual";
@@ -604,6 +612,8 @@
 
     const teamMarkup = (teamId, score, isWinner) => {
       const team = TEAMS[teamId];
+      const record = records.get(teamId);
+      const tournamentState = teamTournamentState(record);
       const teamClass = isFinal
         ? isWinner
           ? "is-winner"
@@ -613,11 +623,14 @@
         ? `<span class="team-score">${score}</span>`
         : `<span class="pick-hint">选择</span>`;
       return `
-        <button class="team-button ${teamClass}" type="button" data-match-id="${match.id}" data-team-id="${teamId}" aria-label="选择 ${team.name} 获胜">
+        <button class="team-button ${teamClass} ${tournamentState.className}" type="button" data-match-id="${match.id}" data-team-id="${teamId}" aria-label="选择 ${team.name} 获胜，当前战绩 ${record.wins} 胜 ${record.losses} 负${tournamentState.label ? `，${tournamentState.label}` : ""}">
           ${crestMarkup(teamId)}
           <span class="team-name-wrap">
             <span class="team-name">${team.name}</span>
-            <span class="team-region">${team.region} · ${team.short}</span>
+            <span class="team-region">
+              ${record.wins}–${record.losses}
+              ${tournamentState.label ? `<b>${tournamentState.label}</b>` : ""}
+            </span>
           </span>
           ${scoreMarkup}
         </button>
@@ -638,6 +651,7 @@
 
   function renderRounds() {
     const currentRound = currentSwissRound();
+    const records = getRecords();
     const columns = [];
 
     for (let round = 1; round <= MAX_SWISS_ROUNDS; round += 1) {
@@ -651,7 +665,7 @@
       if (isCurrent) stateLabel = "进行中";
 
       const content = matches.length
-        ? `<div class="match-stack">${matches.map((match) => matchCardMarkup(match, currentRound)).join("")}</div>`
+        ? `<div class="match-stack">${matches.map((match) => matchCardMarkup(match, currentRound, records)).join("")}</div>`
         : `
           <div class="round-empty">
             <strong>对阵待定</strong>
@@ -674,6 +688,13 @@
           ${content}
         </section>
       `);
+      if (round < MAX_SWISS_ROUNDS) {
+        columns.push(`
+          <div class="round-arrow" aria-hidden="true">
+            <span>→</span>
+          </div>
+        `);
+      }
     }
 
     $("#swissRounds").innerHTML = columns.join("");
@@ -743,30 +764,60 @@
     $("#qualificationGroups").innerHTML = groupMarkup;
     $("#qualifiedCount").innerHTML = `${qualifiedCount} <span>/ 8</span>`;
     $("#qualificationFill").style.width = `${(qualifiedCount / 8) * 100}%`;
+
+    const qualified = records.filter((record) => record.wins >= 3);
+    const eliminated = records.filter((record) => record.losses >= 3);
+    const teamTag = (record, kind) => `
+      <span class="advance-team ${kind}">
+        ${crestMarkup(record.id, true)}
+        <b>${record.wins}–${record.losses}</b>
+      </span>
+    `;
+    const qualifiedLive = $("#advanceQualified");
+    const eliminatedLive = $("#advanceEliminated");
+    if (qualifiedLive) {
+      qualifiedLive.innerHTML = qualified.length
+        ? qualified.map((record) => teamTag(record, "up")).join("")
+        : `<span class="advance-empty">等待三胜战队</span>`;
+    }
+    if (eliminatedLive) {
+      eliminatedLive.innerHTML = eliminated.length
+        ? eliminated.map((record) => teamTag(record, "out")).join("")
+        : `<span class="advance-empty">等待三负战队</span>`;
+    }
+    const qualifiedCountLive = $("#qualifiedCountLive");
+    const eliminatedCountLive = $("#eliminatedCountLive");
+    if (qualifiedCountLive) qualifiedCountLive.textContent = `${qualified.length} / 8`;
+    if (eliminatedCountLive) eliminatedCountLive.textContent = `${eliminated.length} / 8`;
   }
 
   function renderControls() {
     const currentRound = currentSwissRound();
     const bracketNext = !currentRound ? nextPlayableBracketMatch() : null;
     const complete = !currentRound && !bracketNext;
+    const records = getRecords();
+    const qualifiedCount = qualifiedTeams().length;
+    const eliminatedCount = TEAM_IDS.filter((id) => records.get(id).losses >= 3).length;
     $("#simulateNextBtn").disabled = complete;
     $("#simulateRoundBtn").disabled = complete;
     $("#fastForwardBtn").disabled = complete;
     $("#undoBtn").disabled = undoStack.length === 0;
+    const phaseLabel = currentView === "knockout"
+      ? currentRound || !state.bracket
+        ? "淘汰赛 · 等待八强产生"
+        : complete
+          ? "2026 全球总决赛 · 推演完成"
+          : `淘汰赛 · ${bracketRoundLabel(nextPlayableBracketMatch()?.round || "QF")}`
+      : currentRound
+        ? `数据快照 10.24 · 瑞士轮第 ${currentRound} 轮`
+        : "瑞士轮结束 · 8 支战队晋级";
+    $("#eventStatus").textContent = phaseLabel;
+    $("#formatChipText").textContent = currentView === "swiss" || currentRound || !state.bracket
+      ? `晋级 ${qualifiedCount}/8 · 淘汰 ${eliminatedCount}/8`
+      : complete
+        ? "冠军已产生"
+        : `八强 · ${qualifiedCount}/8`;
 
-    if (currentRound) {
-      const active = state.matches.find(
-        (match) => match.round === currentRound && match.status === "pending"
-      );
-      $("#formatChipText").textContent = `BO${active?.bo || 1} · ROUND ${currentRound}`;
-    } else if (state.bracket) {
-      const nextMatch = nextPlayableBracketMatch();
-      $("#formatChipText").textContent = nextMatch
-        ? `BO5 · ${bracketRoundLabel(nextMatch.round).toUpperCase()}`
-        : "TOURNAMENT COMPLETE";
-    } else {
-      $("#formatChipText").textContent = "SWISS STAGE COMPLETE";
-    }
   }
 
   function bracketMatchMarkup(match) {
@@ -900,6 +951,7 @@
     if (currentView === "knockout") {
       renderBracket();
     }
+    renderControls();
     if (scroll) {
       $("#simulator").scrollIntoView({ behavior: "smooth", block: "start" });
     }
