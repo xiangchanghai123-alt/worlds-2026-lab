@@ -1,0 +1,19 @@
+{
+  "name": "Worlds 2026 Swiss Lab",
+  "short_name": "Worlds Lab",
+  "description": "英雄联盟 2026 全球总决赛瑞士轮与淘汰赛推演器",
+  "lang": "zh-CN",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#07111d",
+  "theme_color": "#07111d",
+  "icons": [
+    {
+      "src": "assets/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
