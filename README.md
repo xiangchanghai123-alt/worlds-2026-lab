@@ -2,6 +2,8 @@
 
 英雄联盟 2026 全球总决赛瑞士轮与淘汰赛推演器。界面参考 [majors.im](https://majors.im/2026/cologne) 的赛事推演思路，围绕 LoL 的 Bo1/Bo3 瑞士轮和 Bo5 淘汰赛重新设计。
 
+![Worlds Lab 26 preview](preview.png)
+
 ## 功能
 
 - 默认载入 2026 年 10 月 24 日的真实赛果快照：瑞士轮第 1 轮完赛、第 2 轮抽签已确定。
